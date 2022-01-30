@@ -25,8 +25,9 @@ const Mypage: VFC<Props> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
-  const cookie = ctx.req.cookies["auth"];
-  if (!cookie) {
+  const cookie = ctx.req.cookies["session"];
+  const isLogined = cookie === "logined";
+  if (!isLogined) {
     return {
       props: {
         _tag: "f",

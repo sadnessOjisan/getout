@@ -16,6 +16,20 @@ const Index: VFC = () => {
   }, []);
   return (
     <div>
+      <button
+        onClick={() => {
+          fetch("/api/login");
+        }}
+      >
+        login
+      </button>
+      <button
+        onClick={() => {
+          fetch("/api/logout");
+        }}
+      >
+        logout
+      </button>
       <div>
         <Link href="mypage">マイページ</Link>
       </div>
