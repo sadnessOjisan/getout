@@ -5,7 +5,7 @@ const user: NextApiHandler = (req, res) => {
   if (!session) {
     res
       .status(401)
-      .send(
+      .json(
         `無理やり叩こうとするな！お前のip控えたからな！ ip: ${req.socket.remoteAddress}`
       );
     return;
