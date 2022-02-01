@@ -14,7 +14,7 @@ const getIP = function (req: NextApiRequest) {
 };
 const user: NextApiHandler = (req, res) => {
   const session = req.cookies["session"];
-  const ip = getIP();
+  const ip = getIP(req);
   if (!session) {
     res
       .status(401)
