@@ -30,14 +30,14 @@ const Index: VFC<Props> = (props) => {
     <div>
       <button
         onClick={() => {
-          fetch("/api/login");
+          fetch("/api/login", { method: "POST" });
         }}
       >
         login
       </button>
       <button
         onClick={() => {
-          fetch("/api/logout");
+          fetch("/api/logout", { method: "POST" });
         }}
       >
         logout
