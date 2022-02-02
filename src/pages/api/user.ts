@@ -12,6 +12,7 @@ const getIP = function (req: NextApiRequest) {
   }
   return "0.0.0.0";
 };
+
 const user: NextApiHandler = (req, res) => {
   const session = req.cookies["session"];
   const ip = getIP(req);
@@ -21,7 +22,7 @@ const user: NextApiHandler = (req, res) => {
       .json(`無理やり叩こうとするな！お前のip控えたからな！ ip: ${ip}`);
     return;
   }
-  res.status(200).json({ name: "John Doe" });
+  res.status(200).send({ id: 1, name: "ojisan", secretInfo: "I love you..." });
 };
 
 export default user;

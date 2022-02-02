@@ -1,7 +1,19 @@
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useEffect, VFC } from "react";
+import { UsersRes } from "./api/users";
 
-const Index: VFC = () => {
+type Props =
+  | {
+      _tag: "s";
+      data: UsersRes;
+    }
+  | {
+      _tag: "f";
+      message: string;
+    };
+
+const Index: VFC<Props> = (props) => {
   useEffect(() => {
     const styles = `font-size: 40px;
          color: red;
@@ -29,7 +41,7 @@ const Index: VFC = () => {
         }}
       >
         logout
-      </button>{" "}
+      </button>
       <button
         onClick={() => {
           fetch("/api/user");
@@ -40,8 +52,33 @@ const Index: VFC = () => {
       <div>
         <Link href="mypage">マイページ</Link>
       </div>
+      {props._tag === "s" ? (
+        <div>
+          {props.data.map((d) => (
+            <div>{d.name}</div>
+          ))}
+        </div>
+      ) : (
+        <p>fail to get user info</p>
+      )}
     </div>
   );
 };
 
 export default Index;
+
+const dev = process.env.NODE_ENV !== "production";
+
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+  const endpoint = dev
+    ? "http://localhost:3000/api/users"
+    : "https://getout.vercel.app/api/users";
+  const res = await fetch(endpoint);
+  const json: UsersRes = await res.json();
+  return {
+    props: {
+      _tag: "s",
+      data: json,
+    },
+  };
+};
